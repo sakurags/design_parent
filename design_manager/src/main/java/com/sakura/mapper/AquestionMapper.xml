@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.mapper.AquestionMapper" >
+  <resultMap id="BaseResultMap" type="com.sakura.pojo.Aquestion" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="tanswer" property="tanswer" jdbcType="CHAR" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="cid" property="cid" jdbcType="BIGINT" />
+    <result column="cname" property="cname" jdbcType="CHAR" />
+    <result column="adddate" property="adddate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, tanswer, score, cid, cname, adddate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sakura.pojo.AquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aquestion
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aquestion
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sakura.pojo.AquestionExample" >
+    delete from aquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sakura.pojo.Aquestion" >
+    insert into aquestion (id, name, tanswer, score, 
+      cid, cname, adddate)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=CHAR}, #{tanswer,jdbcType=CHAR}, #{score,jdbcType=DOUBLE}, 
+      #{cid,jdbcType=BIGINT}, #{cname,jdbcType=CHAR}, #{adddate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sakura.pojo.Aquestion" >
+    insert into aquestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="tanswer != null" >
+        tanswer,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="adddate != null" >
+        adddate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="tanswer != null" >
+        #{tanswer,jdbcType=CHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=CHAR},
+      </if>
+      <if test="adddate != null" >
+        #{adddate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sakura.pojo.AquestionExample" resultType="java.lang.Integer" >
+    select count(*) from aquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aquestion
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.tanswer != null" >
+        tanswer = #{record.tanswer,jdbcType=CHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=BIGINT},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=CHAR},
+      </if>
+      <if test="record.adddate != null" >
+        adddate = #{record.adddate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aquestion
+    set id = #{record.id,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=CHAR},
+      tanswer = #{record.tanswer,jdbcType=CHAR},
+      score = #{record.score,jdbcType=DOUBLE},
+      cid = #{record.cid,jdbcType=BIGINT},
+      cname = #{record.cname,jdbcType=CHAR},
+      adddate = #{record.adddate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.pojo.Aquestion" >
+    update aquestion
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="tanswer != null" >
+        tanswer = #{tanswer,jdbcType=CHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=CHAR},
+      </if>
+      <if test="adddate != null" >
+        adddate = #{adddate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sakura.pojo.Aquestion" >
+    update aquestion
+    set name = #{name,jdbcType=CHAR},
+      tanswer = #{tanswer,jdbcType=CHAR},
+      score = #{score,jdbcType=DOUBLE},
+      cid = #{cid,jdbcType=BIGINT},
+      cname = #{cname,jdbcType=CHAR},
+      adddate = #{adddate,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

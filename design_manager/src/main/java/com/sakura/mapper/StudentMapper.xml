@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.sakura.pojo.Student" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="studentid" property="studentid" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="classnum" property="classnum" jdbcType="BIGINT" />
+    <result column="classname" property="classname" jdbcType="CHAR" />
+    <result column="profession" property="profession" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, studentid, name, password, classnum, classname, profession
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sakura.pojo.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from student
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sakura.pojo.StudentExample" >
+    delete from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sakura.pojo.Student" >
+    insert into student (id, studentid, name, 
+      password, classnum, classname, 
+      profession)
+    values (#{id,jdbcType=BIGINT}, #{studentid,jdbcType=CHAR}, #{name,jdbcType=CHAR}, 
+      #{password,jdbcType=CHAR}, #{classnum,jdbcType=BIGINT}, #{classname,jdbcType=CHAR}, 
+      #{profession,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sakura.pojo.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentid != null" >
+        studentid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="classnum != null" >
+        classnum,
+      </if>
+      <if test="classname != null" >
+        classname,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="classnum != null" >
+        #{classnum,jdbcType=BIGINT},
+      </if>
+      <if test="classname != null" >
+        #{classname,jdbcType=CHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sakura.pojo.StudentExample" resultType="java.lang.Integer" >
+    select count(*) from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentid != null" >
+        studentid = #{record.studentid,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=CHAR},
+      </if>
+      <if test="record.classnum != null" >
+        classnum = #{record.classnum,jdbcType=BIGINT},
+      </if>
+      <if test="record.classname != null" >
+        classname = #{record.classname,jdbcType=CHAR},
+      </if>
+      <if test="record.profession != null" >
+        profession = #{record.profession,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student
+    set id = #{record.id,jdbcType=BIGINT},
+      studentid = #{record.studentid,jdbcType=CHAR},
+      name = #{record.name,jdbcType=CHAR},
+      password = #{record.password,jdbcType=CHAR},
+      classnum = #{record.classnum,jdbcType=BIGINT},
+      classname = #{record.classname,jdbcType=CHAR},
+      profession = #{record.profession,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.pojo.Student" >
+    update student
+    <set >
+      <if test="studentid != null" >
+        studentid = #{studentid,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="classnum != null" >
+        classnum = #{classnum,jdbcType=BIGINT},
+      </if>
+      <if test="classname != null" >
+        classname = #{classname,jdbcType=CHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sakura.pojo.Student" >
+    update student
+    set studentid = #{studentid,jdbcType=CHAR},
+      name = #{name,jdbcType=CHAR},
+      password = #{password,jdbcType=CHAR},
+      classnum = #{classnum,jdbcType=BIGINT},
+      classname = #{classname,jdbcType=CHAR},
+      profession = #{profession,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

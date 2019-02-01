@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.mapper.StupaperdetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.sakura.pojo.Stupaperdetails" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="qid" property="qid" jdbcType="BIGINT" />
+    <result column="qname" property="qname" jdbcType="CHAR" />
+    <result column="tanswer" property="tanswer" jdbcType="CHAR" />
+    <result column="fanswer" property="fanswer" jdbcType="CHAR" />
+    <result column="sanswer" property="sanswer" jdbcType="CHAR" />
+    <result column="sid" property="sid" jdbcType="BIGINT" />
+    <result column="sname" property="sname" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, qid, qname, tanswer, fanswer, sanswer, sid, sname, state, score, pid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sakura.pojo.StupaperdetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stupaperdetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from stupaperdetails
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from stupaperdetails
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sakura.pojo.StupaperdetailsExample" >
+    delete from stupaperdetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sakura.pojo.Stupaperdetails" >
+    insert into stupaperdetails (id, qid, qname, tanswer, 
+      fanswer, sanswer, sid, sname, 
+      state, score, pid)
+    values (#{id,jdbcType=BIGINT}, #{qid,jdbcType=BIGINT}, #{qname,jdbcType=CHAR}, #{tanswer,jdbcType=CHAR}, 
+      #{fanswer,jdbcType=CHAR}, #{sanswer,jdbcType=CHAR}, #{sid,jdbcType=BIGINT}, #{sname,jdbcType=CHAR}, 
+      #{state,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{pid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sakura.pojo.Stupaperdetails" >
+    insert into stupaperdetails
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qid != null" >
+        qid,
+      </if>
+      <if test="qname != null" >
+        qname,
+      </if>
+      <if test="tanswer != null" >
+        tanswer,
+      </if>
+      <if test="fanswer != null" >
+        fanswer,
+      </if>
+      <if test="sanswer != null" >
+        sanswer,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="sname != null" >
+        sname,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="qid != null" >
+        #{qid,jdbcType=BIGINT},
+      </if>
+      <if test="qname != null" >
+        #{qname,jdbcType=CHAR},
+      </if>
+      <if test="tanswer != null" >
+        #{tanswer,jdbcType=CHAR},
+      </if>
+      <if test="fanswer != null" >
+        #{fanswer,jdbcType=CHAR},
+      </if>
+      <if test="sanswer != null" >
+        #{sanswer,jdbcType=CHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=BIGINT},
+      </if>
+      <if test="sname != null" >
+        #{sname,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sakura.pojo.StupaperdetailsExample" resultType="java.lang.Integer" >
+    select count(*) from stupaperdetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stupaperdetails
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.qid != null" >
+        qid = #{record.qid,jdbcType=BIGINT},
+      </if>
+      <if test="record.qname != null" >
+        qname = #{record.qname,jdbcType=CHAR},
+      </if>
+      <if test="record.tanswer != null" >
+        tanswer = #{record.tanswer,jdbcType=CHAR},
+      </if>
+      <if test="record.fanswer != null" >
+        fanswer = #{record.fanswer,jdbcType=CHAR},
+      </if>
+      <if test="record.sanswer != null" >
+        sanswer = #{record.sanswer,jdbcType=CHAR},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=BIGINT},
+      </if>
+      <if test="record.sname != null" >
+        sname = #{record.sname,jdbcType=CHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stupaperdetails
+    set id = #{record.id,jdbcType=BIGINT},
+      qid = #{record.qid,jdbcType=BIGINT},
+      qname = #{record.qname,jdbcType=CHAR},
+      tanswer = #{record.tanswer,jdbcType=CHAR},
+      fanswer = #{record.fanswer,jdbcType=CHAR},
+      sanswer = #{record.sanswer,jdbcType=CHAR},
+      sid = #{record.sid,jdbcType=BIGINT},
+      sname = #{record.sname,jdbcType=CHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sakura.pojo.Stupaperdetails" >
+    update stupaperdetails
+    <set >
+      <if test="qid != null" >
+        qid = #{qid,jdbcType=BIGINT},
+      </if>
+      <if test="qname != null" >
+        qname = #{qname,jdbcType=CHAR},
+      </if>
+      <if test="tanswer != null" >
+        tanswer = #{tanswer,jdbcType=CHAR},
+      </if>
+      <if test="fanswer != null" >
+        fanswer = #{fanswer,jdbcType=CHAR},
+      </if>
+      <if test="sanswer != null" >
+        sanswer = #{sanswer,jdbcType=CHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=BIGINT},
+      </if>
+      <if test="sname != null" >
+        sname = #{sname,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sakura.pojo.Stupaperdetails" >
+    update stupaperdetails
+    set qid = #{qid,jdbcType=BIGINT},
+      qname = #{qname,jdbcType=CHAR},
+      tanswer = #{tanswer,jdbcType=CHAR},
+      fanswer = #{fanswer,jdbcType=CHAR},
+      sanswer = #{sanswer,jdbcType=CHAR},
+      sid = #{sid,jdbcType=BIGINT},
+      sname = #{sname,jdbcType=CHAR},
+      state = #{state,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
