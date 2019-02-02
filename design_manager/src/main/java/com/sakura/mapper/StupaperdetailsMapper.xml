@@ -11,7 +11,7 @@
     <result column="sid" property="sid" jdbcType="BIGINT" />
     <result column="sname" property="sname" jdbcType="CHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
     <result column="pid" property="pid" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -111,7 +111,7 @@
       state, score, pid)
     values (#{id,jdbcType=BIGINT}, #{qid,jdbcType=BIGINT}, #{qname,jdbcType=CHAR}, #{tanswer,jdbcType=CHAR}, 
       #{fanswer,jdbcType=CHAR}, #{sanswer,jdbcType=CHAR}, #{sid,jdbcType=BIGINT}, #{sname,jdbcType=CHAR}, 
-      #{state,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{pid,jdbcType=BIGINT})
+      #{state,jdbcType=INTEGER}, #{score,jdbcType=DOUBLE}, #{pid,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.sakura.pojo.Stupaperdetails" >
     insert into stupaperdetails
@@ -179,7 +179,7 @@
         #{state,jdbcType=INTEGER},
       </if>
       <if test="score != null" >
-        #{score,jdbcType=INTEGER},
+        #{score,jdbcType=DOUBLE},
       </if>
       <if test="pid != null" >
         #{pid,jdbcType=BIGINT},
@@ -223,7 +223,7 @@
         state = #{record.state,jdbcType=INTEGER},
       </if>
       <if test="record.score != null" >
-        score = #{record.score,jdbcType=INTEGER},
+        score = #{record.score,jdbcType=DOUBLE},
       </if>
       <if test="record.pid != null" >
         pid = #{record.pid,jdbcType=BIGINT},
@@ -244,7 +244,7 @@
       sid = #{record.sid,jdbcType=BIGINT},
       sname = #{record.sname,jdbcType=CHAR},
       state = #{record.state,jdbcType=INTEGER},
-      score = #{record.score,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=DOUBLE},
       pid = #{record.pid,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -278,7 +278,7 @@
         state = #{state,jdbcType=INTEGER},
       </if>
       <if test="score != null" >
-        score = #{score,jdbcType=INTEGER},
+        score = #{score,jdbcType=DOUBLE},
       </if>
       <if test="pid != null" >
         pid = #{pid,jdbcType=BIGINT},
@@ -296,7 +296,7 @@
       sid = #{sid,jdbcType=BIGINT},
       sname = #{sname,jdbcType=CHAR},
       state = #{state,jdbcType=INTEGER},
-      score = #{score,jdbcType=INTEGER},
+      score = #{score,jdbcType=DOUBLE},
       pid = #{pid,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
