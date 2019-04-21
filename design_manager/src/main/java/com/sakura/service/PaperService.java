@@ -18,4 +18,6 @@ public interface PaperService {
     List getAllPaper();
 
     List searchpaper(String user);
+
+    EUDataGridResult pageStop(Integer pageNo, Integer pageSize, String qname, String cname);
 }

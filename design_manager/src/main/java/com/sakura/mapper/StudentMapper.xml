@@ -10,6 +10,17 @@
     <result column="classname" property="classname" jdbcType="CHAR" />
     <result column="profession" property="profession" jdbcType="CHAR" />
   </resultMap>
+
+  <resultMap id="StuResultMap" type="com.sakura.pojo.StudentResult" >
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="studentid" property="studentid" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="classname" property="classname" jdbcType="CHAR" />
+    <result column="profession" property="profession" jdbcType="CHAR" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+  </resultMap>
+
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -90,6 +101,12 @@
     <include refid="Base_Column_List" />
     from student
     where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectResult" resultMap="StuResultMap">
+SELECT sts.sname name,stu.studentid,stu.classname,stu.profession,SUM(sts.score) score FROM stupaperdetails sts,student stu
+WHERE sts.pid=#{paperid} AND stu.id=sts.sid GROUP BY sts.sname
+
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from student

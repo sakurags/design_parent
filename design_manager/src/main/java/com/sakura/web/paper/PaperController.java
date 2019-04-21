@@ -23,6 +23,11 @@ public class PaperController {
         return paperService.gopage(pageNo, pageSize,qname,cname);
     }
 
+    @GetMapping("/paper/pageStop")
+    public EUDataGridResult pageStop(Integer pageNo, Integer pageSize,String qname, String cname) {
+        return paperService.pageStop(pageNo, pageSize,qname,cname);
+    }
+
     @PostMapping("/paper/add")
     public String addForm(@RequestBody Papers papers) {
         paperService.addpapers(papers);

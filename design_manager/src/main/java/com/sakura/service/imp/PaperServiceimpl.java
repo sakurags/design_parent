@@ -49,6 +49,24 @@ public class PaperServiceimpl implements PaperService {
 
 
     @Override
+    public EUDataGridResult pageStop(Integer pageNo, Integer pageSize,String qname, String cname) {
+        EUDataGridResult result = new EUDataGridResult();
+        PapersExample example = new PapersExample();
+        PapersExample.Criteria criteria = example.createCriteria();
+        criteria.andStateEqualTo(4);
+        if (!"".equals(qname)&&qname!=null)
+            criteria.andNameLike("%"+qname+"%");
+        if (!"".equals(cname)&&cname!=null)
+            criteria.andCnameLike("%"+cname+"%");
+        PageHelper.startPage(pageNo,pageSize);
+        List<Papers> list = papersMapper.selectByExample(example);
+
+        PageInfo pageInfo = new PageInfo<>(list);
+        result.setData(list);
+        result.setCount(pageInfo.getTotal());
+        return result;
+    }
+    @Override
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public void addpapers(Papers papers) {
         papers.setState(1);
@@ -109,7 +127,6 @@ public class PaperServiceimpl implements PaperService {
             PapersExample example = new PapersExample();
             PapersExample.Criteria criteria = example.createCriteria();
             criteria.andCidEqualTo(scmid.getCid());
-            criteria.andStateEqualTo(2);
             List<Papers> papers = papersMapper.selectByExample(example);
             list.addAll(papers);
 

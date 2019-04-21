@@ -2,6 +2,7 @@ package com.sakura.mapper;
 
 import com.sakura.pojo.Student;
 import com.sakura.pojo.StudentExample;
+import com.sakura.pojo.StudentResult;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+
+    List<StudentResult> selectResult(@Param("paperid")Long paperid);
 }
